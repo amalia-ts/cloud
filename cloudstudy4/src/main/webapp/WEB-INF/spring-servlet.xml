@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+       <context:component-scan base-package="gr.amaliatsa.controllers"/>
+
+       <bean id="mongo2" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+              <property name="host" value="localhost" />
+       </bean>
+       <!-- MongoTemplate for connecting and quering the documents in the database -->
+       <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+              <constructor-arg name="mongo" ref="mongo2" />
+              <constructor-arg name="databaseName" value="cloudstudy" />
+       </bean>
+
+       <mongo:repositories base-package="gr.amaliatsa.repositories" />
+
+</beans>
